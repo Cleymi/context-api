@@ -1,21 +1,21 @@
-import { Dispatch, FC, SetStateAction } from 'react';
+import { FC } from 'react';
 import { products } from '../mocks/product.mock';
 import { Product } from '../domain/product';
+import { AppActions, useAppDispatch, useAppState } from '../store/app-context';
 
-interface ProductProps {
-  cart: Product[];
-  setCart: Dispatch<SetStateAction<Product[]>>;
-}
+const Products: FC = () => {
+  const { cart } = useAppState();
+  const dispatchApp = useAppDispatch();
 
-const Products: FC<ProductProps> = ({ cart, setCart }) => {
   const handleAddProduct = (product: Product) => {
-    setCart([...cart, product]);
+    const updatedCart = [...cart, product];
+    dispatchApp({ type: AppActions.SaveCart, payload: updatedCart });
   };
 
   const handleRemoveProduct = (product: Product) => {
     const productExists = cart.some((item) => item.id === product.id);
     if (productExists) {
-      setCart((prevCart) => prevCart.filter((item) => item.id !== product.id));
+      dispatchApp({ type: AppActions.RemoveCart, payload: product });
     }
   };
 

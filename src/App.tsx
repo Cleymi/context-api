@@ -1,20 +1,17 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import Header from './shared/Header';
 import Products from './pages/Products';
 import { Route, Routes } from 'react-router-dom';
 import Checkout from './pages/Checkout';
-import { Product } from './domain/product';
 
 const App: FC = () => {
-  const [cart, setCart] = useState<Product[]>([]);
-
   return (
     <div>
-      <Header list={cart} />
+      <Header />
       <main className="m-4">
         <Routes>
-          <Route path="/" element={<Products cart={cart} setCart={setCart} />} />
-          <Route path="checkout" element={<Checkout list={cart} />} />
+          <Route path="/" element={<Products />} />
+          <Route path="checkout" element={<Checkout />} />
         </Routes>
       </main>
     </div>

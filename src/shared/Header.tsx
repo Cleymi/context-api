@@ -1,9 +1,10 @@
 import { FC } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Cart } from '../domain/card';
+import { useAppState } from '../store/app-context';
 
-const Header: FC<Cart> = ({ list }) => {
+const Header: FC = () => {
   const navigate = useNavigate();
+  const { cart } = useAppState();
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -27,7 +28,7 @@ const Header: FC<Cart> = ({ list }) => {
           <div className="d-flex">
             <button className="btn btn-success" onClick={() => navigate('/checkout')}>
               <i className="fa-solid fa-cart-shopping" />
-              <span className="ms-2">{list.length}</span>
+              <span className="ms-2">{cart.length}</span>
             </button>
           </div>
         </div>
